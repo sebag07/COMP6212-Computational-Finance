@@ -1,4 +1,4 @@
-[RB_Dates, RB_Returns] = readStock("data/RB.csv");
+[RB_Dates, RB_Returns] = readStock("data/RR.csv");
 [TSCO_Dates, TSCO_Returns] = readStock("data/TSCO.csv");
 [CPG_Dates, CPG_Returns] = readStock("data/CPG.csv");
 
@@ -21,22 +21,59 @@ C = cov(ConcatenatedStocks);
 
 [NRet, NRisk, RWts] = NaiveMV(Mean_Vector, C, 1000);
 
-BestPortfolio = getBestPortfolio(RWts, C, Mean_Vector);
+BestPortfolio = getBestPortfolio(RWts, C, Mean_Vector)
 One_Over_N = [(1/3) (1/3) (1/3)];
 
-[BestDates, BestReturns] = getDailyReturns(BestPortfolio, Half_Dates, Half_RB_Returns, Half_TSCO_Returns, Half_CPG_Returns);
-[NaiveDates, NaiveReturns] = getDailyReturns(One_Over_N, Half_Dates, Half_RB_Returns, Half_TSCO_Returns, Half_CPG_Returns);
+[BestDates, BestReturns] = getDailyReturns(BestPortfolio, Half_Dates, RB_Returns, TSCO_Returns, CPG_Returns);
+[NaiveDates, NaiveReturns] = getDailyReturns(One_Over_N, Half_Dates, RB_Returns, TSCO_Returns, CPG_Returns);
 
 bestMean = mean(BestReturns);
 naiveMean = mean(NaiveReturns);
 
+% hold on
+% plot(BestDates, BestReturns, "DisplayName", "Efficient Portfolio");
+% plot(NaiveDates, NaiveReturns, "DisplayName", "1/N Portfolio");
+% title("Efficient vs 1/N Portfolio")
+% legend('Location', 'southeast')
+% hold off
+
+half(1)
+
+sum1Array = zeros(half(1), 1);
+sum2Array = zeros(half(1), 1);
+
+sum1 = 0;
+sum2 = 0;
+
+for i = 1:half
+    sum1 = sum1 + BestReturns(i);
+    sum1Array(i) = sum1;
+    sum2 = sum2 + NaiveReturns(i);
+    sum2Array(i) = sum2;
+end
+
+sum1Array
+
 hold on
-plot(BestDates, BestReturns, "DisplayName", "Efficient Portfolio");
-plot(NaiveDates, NaiveReturns, "DisplayName", "1/N Portfolio");
+
+plot(BestDates, sum1Array, "DisplayName", "Efficient Portfolio");
+plot(NaiveDates, sum2Array, "DisplayName", "1/N Portfolio");
 title("Efficient vs 1/N Portfolio")
-legend('Location', 'southeast')
+legend('Location','southeast')
 hold off
 
+% sum1 = 0;
+% sum2 = 0;
+% hold on
+% for i = 1:half
+%     sum1 = sum1 + BestReturns(i);
+%     sum2 = sum2 + NaiveReturns(i);
+%     plot(i, sum1, "DisplayName", "Efficient Portfolio");
+%     plot(i, sum2, "DisplayName", "1/N Portfolio");
+%     title("Efficient vs 1/N Portfolio")
+%     legend('Location', 'southeast')
+% end
+% hold off
 
 
 function [DailyDates, DailyReturns] = getDailyReturns(p, Dates, Returns1, Returns2, Returns3)
@@ -45,7 +82,7 @@ DailyReturns = zeros(length(Returns1)-int16(length(Returns1)/2)+1,1);
 length(Returns1)
 int16(length(Returns1))
 
-for i = int16(length(Returns1)/2)+1: length(Returns1)
+for i = 1: length(Returns1)/2
     DailyDates(i) = Dates(i);
     DailyReturns(i) = p(1)*(Returns1(i)) + p(2)*(Returns2(i)) + p(3)*(Returns3(i));
     
