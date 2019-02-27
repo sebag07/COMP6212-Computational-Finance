@@ -36,7 +36,7 @@ p3 = setDefaultConstraints(p3);
 
 weights = randfixedsum(3,100, 1, 0, 1)
 weights'
-sum 
+
 [PortfolioRisk, PortfolioReturn] = portstats(m, C, weights');
 
 
@@ -56,3 +56,10 @@ plot(PortfolioRisk, PortfolioReturn, '.r')
 title('Efficient Frontier - Three Pairwise overlayed on All Three')
 legend({'All Three', '1 and 2', '2 and 3', '1 and 3', 'random portfolio'}, 'Location', 'southeast')
 hold off
+
+% C5 = [0.005 0
+%         0   0.005];
+% m5 = [0.1; 0.1];
+% e5 = [1; 1];
+% 
+% resultat = (C5 * m5)/(e5' * C5 * m5)
