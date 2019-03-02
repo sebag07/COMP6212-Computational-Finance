@@ -1,8 +1,8 @@
-[RB_Dates, RB_Returns] = readStock("data/RR.csv");
+[RB_Dates, RB_Returns] = readStock("data/CCL.csv");
 [TSCO_Dates, TSCO_Returns] = readStock("data/TSCO.csv");
 [CPG_Dates, CPG_Returns] = readStock("data/CPG.csv");
 
-half = size(RB_Returns) / 2 ;
+half = size(RB_Returns) / 2 
 
 Half_Dates = RB_Dates(1:half);
 Half_RB_Returns = RB_Returns(1:half);
@@ -19,13 +19,13 @@ ConcatenatedStocks = horzcat(Half_RB_Returns, Half_TSCO_Returns, Half_CPG_Return
 
 C = cov(ConcatenatedStocks);
 
-[NRet, NRisk, RWts] = NaiveMV(Mean_Vector, C, 1000);
+[NRet, NRisk, RWts] = NaiveMV(Mean_Vector, C, 25);
 
-BestPortfolio = getBestPortfolio(RWts, C, Mean_Vector)
+BestPortfolio = getBestPortfolio(RWts, C, Mean_Vector);
 One_Over_N = [(1/3) (1/3) (1/3)];
 
-[BestDates, BestReturns] = getDailyReturns(BestPortfolio, Half_Dates, RB_Returns, TSCO_Returns, CPG_Returns);
-[NaiveDates, NaiveReturns] = getDailyReturns(One_Over_N, Half_Dates, RB_Returns, TSCO_Returns, CPG_Returns);
+[BestDates, BestReturns] = getDailyReturns(BestPortfolio, RB_Dates(half+1:end), RB_Returns(half+1:end), TSCO_Returns(half+1:end), CPG_Returns(half+1:end));
+[NaiveDates, NaiveReturns] = getDailyReturns(One_Over_N, RB_Dates(half+1:end), RB_Returns(half+1:end), TSCO_Returns(half+1:end), CPG_Returns(half+1:end));
 
 bestMean = mean(BestReturns);
 naiveMean = mean(NaiveReturns);
@@ -52,7 +52,6 @@ for i = 1:half
     sum2Array(i) = sum2;
 end
 
-sum1Array
 
 hold on
 
@@ -78,11 +77,11 @@ hold off
 
 function [DailyDates, DailyReturns] = getDailyReturns(p, Dates, Returns1, Returns2, Returns3)
 
-DailyReturns = zeros(length(Returns1)-int16(length(Returns1)/2)+1,1);
+DailyReturns = zeros(length(Returns1)-int16(length(Returns1)/2),1);
 length(Returns1)
 int16(length(Returns1))
 
-for i = 1: length(Returns1)/2
+for i = 2: length(Returns1)
     DailyDates(i) = Dates(i);
     DailyReturns(i) = p(1)*(Returns1(i)) + p(2)*(Returns2(i)) + p(3)*(Returns3(i));
     
@@ -125,8 +124,12 @@ ValuesArray = Values;
 
 Returns = zeros(length(ValuesArray),1);
 
-for value = 2:length(ValuesArray)
-    Returns(value) = (ValuesArray(value) / ValuesArray(value-1))-1;
+for value = 1:length(ValuesArray)
+    if value == 1
+        Returns(value) = ValuesArray(value);
+    else
+        Returns(value) = (ValuesArray(value) / ValuesArray(value-1))-1;
+    end
 end
 
 end
