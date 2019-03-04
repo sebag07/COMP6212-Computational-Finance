@@ -79,25 +79,10 @@ for i = 1:half
     sum1Array(i) = sum1;
     sum2 = sum2 + NaiveReturns(i);
     sum2Array(i) = sum2;
-    procent(i) = sum1Array(i)/sum2Array(i);
+    procent = sum1Array(i)/sum2Array(i);
 end
 
-procent = log10(procent);
-var1 = procent; var2 = procent;
 
-var1(var1 < 0) = nan
-var2(var2 > 0) = nan
-
-% hold on
-% 
-% area(BestDates, var1, "DisplayName", "Efficient Portfolio");
-% area(NaiveDates, var2, "DisplayName", "1/N Portfolio");
-% title("Efficient vs 1/N Portfolio")
-% xlabel("Dates")
-% ylabel("Returns")
-% legend('Location','southeast')
-% 
-% hold off
 
 hold on
 

@@ -7,7 +7,7 @@ p = Portfolio;
 p = setAssetMoments(p, m, C);
 p = setDefaultConstraints(p);
 
-N = 25;
+N = 100;
 
 weights = randfixedsum(3,N, 1, 0, 1)
 
@@ -17,19 +17,21 @@ M = weights' * m';
 
 V = weights' * C * weights;
  
-% hold on
-% for i =1:N
-%    scatter(M(i), V(i,i), 100, '.r')
-%    title('(E,V) combinations')
-%    xlabel('E (Mean)')
-%    ylabel('V (Variance)')
-% end
-% hold off
-
-Plot the efficient frontier for the three assets and the 100 points
 hold on
-plotFrontier(p, 100)
-plot(PortfolioRisk, PortfolioReturn, '.r')
-title('Efficient Frontier - Three Assets')
+for i =1:N
+   scatter(M(i), V(i,i), 100, '.r')
+   title('(E,V) combinations')
+   xlabel('E (Mean)')
+   ylabel('V (Variance)')
+end
 hold off
+
+
+
+% Plot the efficient frontier for the three assets and the 100 points
+% hold on
+% plotFrontier(p, 100)
+% plot(PortfolioRisk, PortfolioReturn, '.r')
+% title('Efficient Frontier - Three Assets')
+% hold off
 

@@ -34,10 +34,10 @@ p3 = Portfolio;
 p3 = setAssetMoments(p3, m3, C3);
 p3 = setDefaultConstraints(p3);
 
-weights = randfixedsum(3,100, 1, 0, 1)
+weights = randfixedsum(2,100, 1, 0, 1)
 weights'
 
-[PortfolioRisk, PortfolioReturn] = portstats(m, C, weights');
+[PortfolioRisk, PortfolioReturn] = portstats(m3, C3, weights');
 
 
 % % % Plot the efficient frontier for the three assets and the 100 points
@@ -48,13 +48,12 @@ weights'
 % % hold off
 
 hold on
-plotFrontier(p,100)
-plotFrontier(p1, 100)
-plotFrontier(p2, 100)
+% plotFrontier(p,100)
+% plotFrontier(p1, 100)
+% plotFrontier(p2, 100)
 plotFrontier(p3, 100)
 plot(PortfolioRisk, PortfolioReturn, '.r')
-title('Efficient Frontier - Three Pairwise overlayed on All Three')
-legend({'All Three', '1 and 2', '2 and 3', '1 and 3', 'random portfolio'}, 'Location', 'southeast')
+title('Efficient Frontier - Assets 1 and 3')
 hold off
 
 % C5 = [0.005 0
