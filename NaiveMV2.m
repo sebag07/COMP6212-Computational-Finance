@@ -12,7 +12,7 @@ cvx_begin quiet
     variable MaxReturnWeights(NAssets)
     maximize(ERet' * MaxReturnWeights)
     subject to
-        V1 * MaxReturnWeights == 10
+        V1 * MaxReturnWeights == 1
         V0 <= MaxReturnWeights 
 cvx_end
 
@@ -28,7 +28,8 @@ cvx_begin quiet
     variable MinVarWeights(NAssets)
     minimize(MinVarWeights' * ECov * MinVarWeights + V0' * MinVarWeights)
     subject to
-        V1 * MinVarWeights == 10
+        V1 * MinVarWeights == 1
+        V0 <= MinVarWeights
 cvx_end
 
 % Find the minimum variance return

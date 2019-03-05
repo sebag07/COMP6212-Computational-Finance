@@ -11,12 +11,8 @@ ValuesArray = Values;
 
 Returns = zeros(size(ValuesArray));
 
-for value = 1:size(ValuesArray)
-    if value == 1
-        Returns(value, :) = ValuesArray(value, :);
-    else
+for value = 2:size(ValuesArray)
         Returns(value, :) = (ValuesArray(value, :) / ValuesArray(value-1, :))-1;
-    end
 end
 
 end

@@ -18,9 +18,9 @@ weights = randfixedsum(3,N, 1, 0, 1);
 
 [PortfolioRisk, PortfolioReturn] = portstats(m, C, weights');
  
-plot(PRisk, PRoR, 'r','LineWidth',3)
+plot(PRisk, PRoR, 'b','LineWidth',3)
 hold on
 plot(PRisk2, PRoR2, 'g','LineWidth',1)
-plot(PortfolioRisk, PortfolioReturn, '.b')
-legend('Linprog and Quadprog','CVX Programming', 'Portfolios', 'Location', 'northwest')
+plot(PortfolioRisk, PortfolioReturn, '.r')
+legend('Linprog and Quadprog','CVX Programming', 'Portfolios', 'Location',)
 hold off

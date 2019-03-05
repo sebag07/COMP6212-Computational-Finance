@@ -1,0 +1,22 @@
+function GreedyMap = greedySelection(Returns, ReturnsMap, files)
+
+GreedyMap = containers.Map();
+N = length(files);
+
+errors = zeros(N,1);
+
+for i=1:N
+    FileName = files(i).name;
+    ReturnThing = ReturnsMap(FileName);
+    Result = zeros(length(Returns),1);
+
+    errors(i) = immse(Returns, ReturnThing);
+    
+    GreedyMap(FileName)= Result;
+end
+
+errors = sort(errors, 'descend');
+
+
+
+end

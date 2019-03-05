@@ -58,7 +58,16 @@ A = [V1 ; VConstr ];
 B = [1 ; 0];
 for point = 2:NumFrontPoints
     B(2) = RTarget(point);
-    Weights = quadprog(ECov,V0,[],[],A,B,V0,[],[],options);
+    
+    cvx_begin quiet
+    variable Weights(NAssets)
+    minimize(Weights' * ECov * Weights + V0' * Weights)
+    subject to
+        A * Weights == B
+        V0 <= Weights
+    cvx_end
+    
+%     Weights = quadprog(ECov,V0,[],[],A,B,V0,[],[],options);
     PRoR(point) = dot(Weights, ERet);
     PRisk(point) = sqrt(Weights'*ECov*Weights);
     PWts(point, :) = Weights(:)';
