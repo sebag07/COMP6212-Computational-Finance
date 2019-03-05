@@ -67,10 +67,10 @@ plot(Dates,sumFTSE, 'DisplayName','FTSE');
 plot(Dates,sumG,'DisplayName','Greedy')
 plot(Dates, sparseSum, 'DisplayName', 'Sparse')
 legend('Location','southeast', 'FontSize', 6)
+xlabel('Dates')
+ylabel('Return')
 title('Index Tracking - Greedy and Sparse Selection')
 
 hold off
 
-errMSE = immse(sumG, sumFTSE)
-
-MeanSquareGreedy = mean(MeanSquareList);
+errMSE = immse(sumFTSE, sumG)

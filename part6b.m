@@ -22,9 +22,9 @@ end
 
 tic
 disp('Start lasso')
-tau = 0.0608;
+tau = 0.06;
 weightsSparse = getSparsePortfolio(ReturnsFTSE, Returns, tau);
-weightsSparse = round(weightsSparse*10000)/sum(round(weightsSparse*10000));
+weightsSparse = round(weightsSparse*10000)/sum(round(weightsSparse*10000))
 numFeatures = nnz(weightsSparse);
 selectedSparse = find(weightsSparse);
 
@@ -32,9 +32,10 @@ toc
 
 dailyReturns = getDailyReturns(weightsSparse, Returns);
 
-err = immse(ReturnsFTSE, dailyReturns)
-
 sparseSum = cumulativeSum(dailyReturns);
+FTSEsum = cumulativeSum(ReturnsFTSE);
+
+err = immse(FTSEsum, sparseSum)
 
 plot(Dates, sum1Array)
 
