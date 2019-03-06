@@ -27,25 +27,6 @@ end
 %Greedy Forward Selection of 6 assets
 indexMap = greedySelection(ReturnsFTSE, Returns);
 
-% BestSix = containers.Map();
-% for i=1:6
-%     SmallestDifference = 99999;
-%     SmallestRef = '';
-%     k = keys(GreedyMap);
-%     for j = k
-%         FileName = j{1};
-%         Difference = GreedyMap(FileName);
-%         Mean = mean(Difference);
-%         if Mean < SmallestDifference
-%             SmallestDifference = Mean;
-%             SmallestRef = FileName;
-%         end
-%     end
-%     
-%     BestSix(SmallestRef) = SmallestDifference;
-%     remove(GreedyMap,SmallestRef);
-% end
-
 MeanSquareList = zeros(6,1);
 
 sumFTSE = cumulativeSum(ReturnsFTSE);

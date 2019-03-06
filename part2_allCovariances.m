@@ -35,9 +35,8 @@ p3 = setAssetMoments(p3, m3, C3);
 p3 = setDefaultConstraints(p3);
 
 weights = randfixedsum(2,100, 1, 0, 1)
-weights'
 
-[PortfolioRisk, PortfolioReturn] = portstats(m3, C3, weights');
+[PortfolioRisk, PortfolioReturn] = portstats(m1, C1, weights');
 
 
 % % % Plot the efficient frontier for the three assets and the 100 points
@@ -49,16 +48,9 @@ weights'
 
 hold on
 % plotFrontier(p,100)
-% plotFrontier(p1, 100)
+plotFrontier(p1, 100)
 % plotFrontier(p2, 100)
-plotFrontier(p3, 100)
+% plotFrontier(p3, 100)
 plot(PortfolioRisk, PortfolioReturn, '.r')
-title('Efficient Frontier - Assets 1 and 3')
+title('Efficient Frontier - Assets 1 and 2')
 hold off
-
-% C5 = [0.005 0
-%         0   0.005];
-% m5 = [0.1; 0.1];
-% e5 = [1; 1];
-% 
-% resultat = (C5 * m5)/(e5' * C5 * m5)

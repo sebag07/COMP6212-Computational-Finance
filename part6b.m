@@ -39,7 +39,7 @@ err = immse(FTSEsum, sparseSum)
 
 plot(Dates, sum1Array)
 
-%% Function
+%% Functions
 
 function dailyReturns = getDailyReturns(weights, Returns)
 
